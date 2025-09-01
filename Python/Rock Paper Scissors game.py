@@ -5,7 +5,6 @@ print(f"\nWelcome to Rock-Paper-Scissors, {name}!")
 choices = ['rock', 'paper', 'scissors']
 player_score = 0
 computer_score = 0
-rounds_played = 0
 
 while True:
     user_choice = input("Enter rock, paper, or scissors (or 'quit' to return to menu): ").lower()
@@ -33,7 +32,6 @@ while True:
         print("Computer wins this round!")
         computer_score += 1
 
-    rounds_played += 1
     print(f"Current Score - {name}: {player_score} | Computer: {computer_score}")
     print("-" * 40)
 
