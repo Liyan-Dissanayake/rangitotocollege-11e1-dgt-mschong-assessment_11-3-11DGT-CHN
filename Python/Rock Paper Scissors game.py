@@ -1,26 +1,39 @@
 import random
+import tkinter as tk
 
+
+# Ask the user for their name
 name = input("Enter your name: ")
+# Display a welcome message
 print(f"\nWelcome to Rock-Paper-Scissors, {name}!")
+# List of valid choices
 choices = ['rock', 'paper', 'scissors']
+# Initialize scores
 player_score = 0
 computer_score = 0
 
+# Main game loop
 while True:
+    # Prompt user for their choice
     user_choice = input("Enter rock, paper, or scissors (or 'quit' to return to menu): ").lower()
     
+    # Check if user wants to quit
     if user_choice == 'quit':
+        # Display final scores and exit
         print(f"\nThanks for playing, {name}!")
         print(f"Final Score - {name}: {player_score} | Computer: {computer_score}")
         break
 
+    # Validate user input
     if user_choice not in choices:
         print("Invalid choice. Please enter 'rock', 'paper', or 'scissors'.")
         continue
 
+    # Computer randomly selects a choice
     computer_choice = random.choice(choices)
     print(f"Computer chose: {computer_choice}")
 
+    # Compare choices and determine the winner
     if user_choice == computer_choice:
         print("It's a tie!")
     elif (user_choice == 'rock' and computer_choice == 'scissors') or \
@@ -32,54 +45,12 @@ while True:
         print("Computer wins this round!")
         computer_score += 1
 
+    # Display current scores
     print(f"Current Score - {name}: {player_score} | Computer: {computer_score}")
     print("-" * 40)
 
+# GUI version of the game using tkinter
 
-"""Here are the steps to make a flow chart for your Rock Paper Scissors program:
-
-Start
-
-Begin with a "Start" symbol.
-Input Name
-
-Show a step for the user to enter their name.
-Display Welcome Message
-
-Indicate the welcome message is shown.
-Game Loop (Repeat Until Quit)
-
-Use a loop symbol to show the game repeats.
-User Input: Choice
-
-User enters "rock", "paper", "scissors", or "quit".
-Check for Quit
-
-Decision: Is input "quit"?
-If yes, go to "End Game" steps.
-If no, continue.
-Validate Input
-
-Decision: Is input valid?
-If not, show error and loop back for input.
-Computer Chooses
-
-Computer randomly selects "rock", "paper", or "scissors".
-Compare Choices
-
-Decision:
-Tie?
-Player wins?
-Computer wins?
-Update Scores
-
-Add points to player or computer.
-Display Round Results & Scores
-
-Show who won the round and current scores.
-Repeat Loop
-
-Go back to user input.
-End Game
-
-Display final scores and exit."""
+root = tk.Tk()
+root.title("Rock-Paper-Scissors")
+root.geometry("400x300")

@@ -1,33 +1,65 @@
 import tkinter as tk
+import random
 
-def calculate():
-    try:
-        num1 = float(entry1.get())
-        num2 = float(entry2.get())
-        result = num1 + num2
-        result_label.config(text=f"Result: {result}")
-    except ValueError:
-        result_label.config(text="Please enter valid numbers!")
-
-# Create main window
+# Initialize main window
 root = tk.Tk()
-root.title("Simple Calculator")
+root.title("Rock-Paper-Scissors")
+root.geometry("400x300")
 
-# Create widgets
-label1 = tk.Label(root, text="First Number:")
-label2 = tk.Label(root, text="Second Number:")
-entry1 = tk.Entry(root)
-entry2 = tk.Entry(root)
-calculate_button = tk.Button(root, text="Add", command=calculate)
-result_label = tk.Label(root, text="Result: ")
+# Game variables
+choices = ['rock', 'paper', 'scissors']
+player_score = 0
+computer_score = 0
 
-# Arrange widgets using grid
-label1.grid(row=0, column=0, padx=10, pady=5)
-entry1.grid(row=0, column=1, padx=10, pady=5)
-label2.grid(row=1, column=0, padx=10, pady=5)
-entry2.grid(row=1, column=1, padx=10, pady=5)
-calculate_button.grid(row=2, column=0, columnspan=2, pady=10)
-result_label.grid(row=3, column=0, columnspan=2, pady=5)
+# Functions
+def play(user_choice):
+    global player_score, computer_score
+    
+    computer_choice = random.choice(choices)
+    result = ""
 
-# Start the application
+    if user_choice == computer_choice:
+        result = "It's a tie!"
+    elif (user_choice == 'rock' and computer_choice == 'scissors') or \
+         (user_choice == 'paper' and computer_choice == 'rock') or \
+         (user_choice == 'scissors' and computer_choice == 'paper'):
+        result = f"You win! {user_choice} beats {computer_choice}"
+        player_score += 1
+    else:
+        result = f"Computer wins! {computer_choice} beats {user_choice}"
+        computer_score += 1
+    
+    # Update labels
+    result_label.config(text=result)
+    score_label.config(text=f"Player: {player_score} | Computer: {computer_score}")
+
+def quit_game():
+    root.destroy()
+
+# Widgets
+title_label = tk.Label(root, text="Rock-Paper-Scissors", font=("Arial", 16))
+title_label.pack(pady=10)
+
+score_label = tk.Label(root, text="Player: 0 | Computer: 0", font=("Arial", 12))
+score_label.pack(pady=5)
+
+result_label = tk.Label(root, text="", font=("Arial", 12))
+result_label.pack(pady=5)
+
+button_frame = tk.Frame(root)
+button_frame.pack(pady=10)
+
+rock_btn = tk.Button(button_frame, text="Rock", width=10, command=lambda: play("rock"))
+rock_btn.grid(row=0, column=0, padx=5)
+
+paper_btn = tk.Button(button_frame, text="Paper", width=10, command=lambda: play("paper"))
+paper_btn.grid(row=0, column=1, padx=5)
+
+scissors_btn = tk.Button(button_frame, text="Scissors", width=10, command=lambda: play("scissors"))
+scissors_btn.grid(row=0, column=2, padx=5)
+
+quit_btn = tk.Button(root, text="Quit", width=10, command=quit_game)
+quit_btn.pack(pady=10)
+
+# Run application
 root.mainloop()
