@@ -48,9 +48,3 @@ while True:
     # Display current scores
     print(f"Current Score - {name}: {player_score} | Computer: {computer_score}")
     print("-" * 40)
-
-# GUI version of the game using tkinter
-
-root = tk.Tk()
-root.title("Rock-Paper-Scissors")
-root.geometry("400x300")
