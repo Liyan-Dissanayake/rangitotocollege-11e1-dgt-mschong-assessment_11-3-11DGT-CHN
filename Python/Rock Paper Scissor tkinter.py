@@ -1,15 +1,21 @@
 import tkinter as tk
 import random
 
+# Create main application window
 root = tk.Tk()
 root.title("Rock-Paper-Scissors")
 root.geometry("400x300")
 
+# List of possible choices
 choices = ['rock', 'paper', 'scissors']
 player_score = 0
 computer_score = 0
 
 def play(user_choice):
+    """
+    Handles the game logic when the player makes a choice.
+    Updates scores and result label.
+    """
     user_choice = user_choice.lower()
     global player_score, computer_score
 
@@ -26,27 +32,40 @@ def play(user_choice):
         result = f"Computer wins! {computer_choice} beats {user_choice}"
         computer_score += 1
 
+    # Update result and score labels
     result_label.config(text=result)
     score_label.config(text=f"Player: {player_score} | Computer: {computer_score}")
+
 def submit_name():
+    """
+    Handles the name submission.
+    Updates the UI to show game buttons and hides name entry widgets.
+    """
     global player_name
     player_name = name_entry.get()
     name_label.pack_forget()
     name_entry.pack_forget()
     submit_button.pack_forget()
     title_label.config(text=f"Welcome, {player_name}! Rock-Paper-Scissors")
+    
     score_label.pack(pady=5)
     result_label.pack(pady=5)
     quit_btn.pack(pady=10)
     scissors_btn.grid(row=0, column=2, padx=5)
     paper_btn.grid(row=0, column=1, padx=5)
     rock_btn.grid(row=0, column=0, padx=5)
+
 def quit_game():
+    """
+    Quits the application.
+    """
     root.destroy()
 
+# Title label at the top
 title_label = tk.Label(root, text="Rock-Paper-Scissors", font=("Arial", 16))
 title_label.pack(pady=20, padx=1)
 
+# Name entry widgets
 name_label = tk.Label(root, text="Enter your name:", font=("Arial", 12))
 name_label.pack(pady=5)
 name_entry = tk.Entry(root, font=("Arial", 12))
@@ -54,16 +73,19 @@ name_entry.pack(pady=5)
 submit_button = tk.Button(root, text="Submit", font=("Arial", 12), command=submit_name)
 submit_button.pack(pady=5)
 
+# Score and result labels (hidden until name is submitted)
 score_label = tk.Label(root, text="Player: 0 | Computer: 0", font=("Arial", 12))
 result_label = tk.Label(root, text="", font=("Arial", 12))
 
+# Frame for game buttons
 button_frame = tk.Frame(root)
 button_frame.pack(pady=10)
 
+# Game buttons (hidden until name is submitted)
 rock_btn = tk.Button(button_frame, text="Rock", width=10, command=lambda: play("rock"))
 paper_btn = tk.Button(button_frame, text="Paper", width=10, command=lambda: play("paper"))
 scissors_btn = tk.Button(button_frame, text="Scissors", width=10, command=lambda: play("scissors"))
 quit_btn = tk.Button(root, text="Quit", width=10, command=quit_game)
 
-
+# Start the Tkinter event
 root.mainloop()
