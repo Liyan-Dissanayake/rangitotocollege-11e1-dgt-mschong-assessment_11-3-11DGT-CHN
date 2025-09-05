@@ -35,7 +35,6 @@ def play(user_choice):
     # Update result and score labels
     result_label.config(text=result)
     score_label.config(text=f"Player: {player_score} | Computer: {computer_score}")
-
 def submit_name():
     """
     Handles the name submission.
@@ -54,7 +53,6 @@ def submit_name():
     scissors_btn.grid(row=0, column=2, padx=5)
     paper_btn.grid(row=0, column=1, padx=5)
     rock_btn.grid(row=0, column=0, padx=5)
-
 def quit_game():
     """
     Quits the application.
