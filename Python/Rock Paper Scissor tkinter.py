@@ -40,7 +40,6 @@ def play(user_choice):
     score_label.config(text=f"Player: {player_score} | Computer: {computer_score}")
 
     check_winner()
-
 def submit_name():
     """
     Handles name submission:
@@ -66,13 +65,11 @@ def submit_name():
     scissors_btn.grid(row=0, column=2, padx=5)
     paper_btn.grid(row=0, column=1, padx=5)
     rock_btn.grid(row=0, column=0, padx=5)
-
 def quit_game():
     """
     Exits the application.
     """
     root.destroy()
-
 def check_winner():
     """
     Checks if either player or computer has reached 5 points.
