@@ -9,12 +9,19 @@ root.geometry("550x400")
 root.resizable(False, False)
 root.config(bg="#1e1e2e")
 
-# --- Game variables ---
-words = [
+# --- Word list (Version 1) ---
+words_master = [
     "python", "keyboard", "speed", "challenge", "program", "window",
     "function", "variable", "random", "player", "typing", "testing",
-    "accuracy", "loop", "game", "button", "logic", "winner", "input", "output"
+    "accuracy", "loop", "game", "button", "logic", "winner", "input", "output",
+    "developer", "computer", "syntax", "compile", "editor", "project",
+    "error", "coding", "performance", "practice", "learn", "typewriter",
+    "mechanical", "language", "debug", "structure", "indent", "runtime",
+    "hardware", "software", "command", "processor", "virtual", "memory",
+    "storage", "algorithm", "condition", "argument", "statement", "module"
 ]
+
+words_unused = words_master.copy()  # Tracks unused words
 current_word = ""
 start_time = None
 score = 0
@@ -47,8 +54,11 @@ def start_game():
     update_timer()
 
 def next_word():
-    global current_word
-    current_word = random.choice(words)
+    global current_word, words_unused
+    if not words_unused:  # Reset list if all words have been used
+        words_unused = words_master.copy()
+        random.shuffle(words_unused)  # Shuffle list for better randomization
+    current_word = words_unused.pop()  # Pop instead of choice to prevent repetition
     word_label.config(text=current_word)
 
 def check_word(event=None):
