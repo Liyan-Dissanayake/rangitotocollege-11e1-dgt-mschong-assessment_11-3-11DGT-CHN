@@ -9,7 +9,6 @@ root.geometry("550x400")
 root.resizable(False, False)
 root.config(bg="#1e1e2e")
 
-# --- Word list (Version 1) ---
 words_master = [
     "python", "keyboard", "speed", "challenge", "program", "window",
     "function", "variable", "random", "player", "typing", "testing",
@@ -28,6 +27,8 @@ score = 0
 total_attempts = 0
 game_running = False
 time_limit = 30  # seconds
+times = []
+word_start_time = None  # Tracks time for the current word only
 
 # --- Colors and fonts ---
 COLOR_BG = "#1e1e2e"
@@ -41,17 +42,19 @@ FONT_BUTTON = ("Helvetica", 12, "bold")
 
 # --- Functions ---
 def start_game():
-    global score, total_attempts, game_running, start_time
+    global score, total_attempts, game_running, start_time, word_start_time
     score = 0
     total_attempts = 0
     game_running = True
-    start_time = time.time()
+    start_time = time.time()        # main timer
+    word_start_time = time.time()   # per-word timer
 
     result_label.config(text="")
     entry.config(state=tk.NORMAL)
     entry.delete(0, tk.END)
     next_word()
     update_timer()
+
 
 def next_word():
     global current_word, words_unused
@@ -62,7 +65,7 @@ def next_word():
     word_label.config(text=current_word)
 
 def check_word(event=None):
-    global score, total_attempts
+    global score, total_attempts, times, word_start_time
     if not game_running:
         return
 
@@ -70,11 +73,25 @@ def check_word(event=None):
     entry.delete(0, tk.END)
     total_attempts += 1
 
+    # per-word timing
+    end_time = time.time()
+    time_taken = end_time - word_start_time
+    times.append(time_taken)
+    average_time = sum(times) / len(times)
+    wpm = (score / sum(times)) * 60
+    word_start_time = time.time()  # reset per-word timer for next word
+
     if typed == current_word:
         score += 1
-        result_label.config(text="Correct!", fg=COLOR_GOOD)
+        result_label.config(
+            text=f"Correct! ({time_taken:.2f}s) | Avg: {average_time:.2f}s | WPM: {wpm:.1f}",
+            fg=COLOR_GOOD
+        )
     else:
-        result_label.config(text=f"Wrong! ({current_word})", fg=COLOR_BAD)
+        result_label.config(
+            text=f"Wrong! ({current_word}) | Avg: {average_time:.2f}s | WPM: {wpm:.1f}",
+            fg=COLOR_BAD
+        )
 
     next_word()
 
@@ -103,6 +120,8 @@ def update_timer():
     root.after(1000, update_timer)
 
 def reset_game():
+    global times
+    times = []  # Reset timer list for new game
     play_again_btn.pack_forget()
     start_game()
 
