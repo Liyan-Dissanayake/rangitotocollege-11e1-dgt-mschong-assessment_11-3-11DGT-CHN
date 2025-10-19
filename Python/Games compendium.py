@@ -2,17 +2,17 @@ import tkinter as tk
 import random
 import time
 
-# --- Main application window ---
+# Main application window
 root = tk.Tk()
 root.title("Games Compendium")
 root.geometry("600x450")
 root.resizable(False, False)
 
-# --- Global variables ---
+# Global variables
 player_name = ""
 current_game = None  # Tracks which game is currently active
 
-# --- Colors and fonts ---
+# Colors and fonts
 COLOR_BG1 = "#1e1e2e"  # Typing Game
 COLOR_FG1 = "#cdd6f4"
 COLOR_ACCENT1 = "#89b4fa"
@@ -30,7 +30,7 @@ FONT_TITLE = ("Helvetica", 22, "bold")
 FONT_TEXT = ("Helvetica", 16)
 FONT_BUTTON = ("Helvetica", 12, "bold")
 
-# --- ================== Name Entry ================== ---
+# Name Entry
 def ask_name():
     """Ask the player for their name at the very start."""
     clear_screen()
@@ -59,7 +59,7 @@ def submit_name():
         return
     show_menu()
 
-# --- ====================== Main Menu ====================== ---
+# Main Menu
 def show_menu():
     """Display the main menu for selecting games."""
     clear_screen()
@@ -80,7 +80,7 @@ def clear_screen():
     for widget in root.winfo_children():
         widget.destroy()
 
-# --- ================= Typing Speed Test ================== ---
+# Typing Speed Test
 words_master = [
     "python", "keyboard", "speed", "challenge", "program", "window",
     "function", "variable", "random", "player", "typing", "testing",
@@ -136,12 +136,12 @@ def check_word(event=None):
     if typed == current_word:
         score += 1
         result_label.config(
-            text=f"{player_name}, Correct! ({time_taken:.2f}s) | Avg: {average_time:.2f}s | WPM: {wpm:.1f}",
+            text=f"Correct! ({time_taken:.2f}s) | Avg: {average_time:.2f}s | WPM: {wpm:.1f}",
             fg=COLOR_GOOD
         )
     else:
         result_label.config(
-            text=f"{player_name}, Wrong! ({current_word}) | Avg: {average_time:.2f}s | WPM: {wpm:.1f}",
+            text=f"Wrong! ({current_word}) | Avg: {average_time:.2f}s | WPM: {wpm:.1f}",
             fg=COLOR_BAD
         )
     next_word()
@@ -159,7 +159,7 @@ def update_timer():
         wpm = (score / time_limit) * 60
         accuracy = (score / total_attempts * 100) if total_attempts > 0 else 0
         result_label.config(
-            text=f"{player_name}, WPM: {wpm:.1f} | Accuracy: {accuracy:.1f}%",
+            text=f"WPM: {wpm:.1f} | Accuracy: {accuracy:.1f}%",
             fg=COLOR_ACCENT1
         )
         play_again_btn.pack(pady=10)
@@ -218,7 +218,7 @@ def init_typing_game_ui():
     quit_btn = tk.Button(button_frame, text="Quit to Menu", font=FONT_BUTTON, bg=COLOR_BAD, fg=COLOR_BG1, relief="flat", width=12, command=quit_to_menu)
     quit_btn.grid(row=0, column=1, padx=10)
 
-# --- ============== Rock-Paper-Scissors ================= --
+# Rock-Paper-Scissors
 choices = ['rock', 'paper', 'scissors']
 player_score = 0
 computer_score = 0
@@ -238,15 +238,15 @@ def play_rps(user_choice):
     user_choice = user_choice.lower()
     computer_choice = random.choice(choices)
     if user_choice == computer_choice:
-        result_label.config(text=f"{player_name}, It's a tie!", fg=COLOR_TIE)
+        result_label.config(text=f"It's a tie!", fg=COLOR_TIE)
     elif (user_choice == 'rock' and computer_choice == 'scissors') or \
          (user_choice == 'paper' and computer_choice == 'rock') or \
          (user_choice == 'scissors' and computer_choice == 'paper'):
         player_score += 1
-        result_label.config(text=f"{player_name}, You win! {user_choice.capitalize()} beats {computer_choice.capitalize()}", fg=COLOR_WIN)
+        result_label.config(text=f"You win! {user_choice.capitalize()} beats {computer_choice.capitalize()}", fg=COLOR_WIN)
     else:
         computer_score += 1
-        result_label.config(text=f"{player_name}, Computer wins! {computer_choice.capitalize()} beats {user_choice.capitalize()}", fg=COLOR_LOSE)
+        result_label.config(text=f"Computer wins! {computer_choice.capitalize()} beats {user_choice.capitalize()}", fg=COLOR_LOSE)
     score_label.config(text=f"{player_name}: {player_score} | Computer: {computer_score}")
     check_winner_rps()
 
@@ -263,12 +263,12 @@ def reset_rps_game():
 def check_winner_rps():
     global game_over
     if player_score >= 5:
-        result_label.config(text=f"{player_name}, Congratulations! You won the game!", fg=COLOR_WIN)
+        result_label.config(text=f"Congratulations! You won the game!", fg=COLOR_WIN)
         play_again_btn.pack(pady=10)
         game_over = True
         enable_buttons(False)
     elif computer_score >= 5:
-        result_label.config(text=f"{player_name}, Computer won the game! Better luck next time.", fg=COLOR_LOSE)
+        result_label.config(text=f"Computer won the game! Better luck next time.", fg=COLOR_LOSE)
         play_again_btn.pack(pady=10)
         game_over = True
         enable_buttons(False)
@@ -309,6 +309,6 @@ def init_rps_ui():
     quit_btn.pack(pady=10)
     play_again_btn = tk.Button(root, text="Play Again", width=12, font=FONT_BUTTON, bg=COLOR_WIN, fg=COLOR_BG2, relief="flat", command=reset_rps_game)
 
-# --- Start by asking the player's name ---
+# Start by asking the player's name 
 ask_name()
 root.mainloop()

@@ -135,7 +135,7 @@ def quit_game():
     """Exit the program."""
     root.destroy()
 
-# --- UI Layout ---
+# UI Layout
 title_label = tk.Label(root, text="Typing Speed Test", font=FONT_TITLE, bg=COLOR_BG, fg=COLOR_ACCENT)
 title_label.pack(pady=20)
 
@@ -155,7 +155,7 @@ result_label.pack(pady=15)
 button_frame = tk.Frame(root, bg=COLOR_BG)
 button_frame.pack(pady=10)
 
-# --- Buttons ---
+# Buttons
 start_btn = tk.Button(button_frame, text="Start", font=FONT_BUTTON, bg=COLOR_ACCENT, fg=COLOR_BG, relief="flat", width=12, command=start_game)
 start_btn.grid(row=0, column=0, padx=10)
 
@@ -163,5 +163,5 @@ play_again_btn = tk.Button(button_frame, text="Play Again", font=FONT_BUTTON, bg
 quit_btn = tk.Button(button_frame, text="Quit", font=FONT_BUTTON, bg=COLOR_BAD, fg=COLOR_BG, relief="flat", width=12, command=quit_game)
 quit_btn.grid(row=0, column=1, padx=10)
 
-# --- Run the application ---
+# Run the application
 root.mainloop()
