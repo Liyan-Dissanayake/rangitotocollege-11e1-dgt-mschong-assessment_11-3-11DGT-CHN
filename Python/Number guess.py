@@ -95,3 +95,30 @@ play_again_btn = tk.Button(root, text="Play Again", font=FONT_BUTTON, bg=COLOR_S
 
 # Start the app
 root.mainloop()
+
+
+# START
+#   ↓
+# Generate random number between 1 and 100 → secret_number
+# Set attempts = 0
+# Set game_over = False
+#   ↓
+# WHILE game_over == False:
+#     ↓
+#     Get user input → guess
+#     ↓
+#     Is guess a number?
+#       ├── No → Display "Please enter a valid number!" and go back to input
+#       └── Yes → Convert guess to integer
+#                  attempts = attempts + 1
+#                  ↓
+#                  Compare guess to secret_number:
+#                    ├── guess < secret_number → Display "Too low! Try again."
+#                    ├── guess > secret_number → Display "Too high! Try again."
+#                    └── guess == secret_number:
+#                           Display "Correct! Guessed in X tries."
+#                           game_over = True
+#                           ↓
+#                           Ask "Play again?"
+#                               ├── Yes → Reset secret_number, attempts = 0, game_over = False
+#                               └── No  → END
