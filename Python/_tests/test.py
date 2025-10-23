@@ -797,8 +797,8 @@ def attempt_castle(side):
     else:
         messagebox.showinfo("Castling", f"{color.upper()} cannot castle {('kingside' if side=='K' else 'queenside')} now.")
 
-castle_k_btn = tk.Button(castle_frame, text="Castle Kingside", font=("Arial", 12), command=lambda: attempt_castle('K'))
-castle_q_btn = tk.Button(castle_frame, text="Castle Queenside", font=("Arial", 12), command=lambda: attempt_castle('Q'))
+castle_k_btn = tk.Button(castle_frame, text="Castle Queenside", font=("Arial", 12), command=lambda: attempt_castle('Q'))
+castle_q_btn = tk.Button(castle_frame, text="Castle Kingside", font=("Arial", 12), command=lambda: attempt_castle('K'))
 castle_k_btn.pack(side="left", padx=8)
 castle_q_btn.pack(side="left", padx=8)
 

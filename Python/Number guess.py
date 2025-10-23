@@ -69,6 +69,38 @@ def check_guess(event=None):
     # Clear the entry field for the next guess
     guess_entry.delete(0, tk.END)
 
+    if guess < secret_number:
+        flash_result("#81a1c1")  # Too low
+    elif guess > secret_number:
+        flash_result("#bf616a")  # Too high
+    else:
+        flash_result("#a3be8c", correct=True)  # Correct guess
+
+
+
+
+def flash_result(color, correct=False):
+    """Provide dynamic visual feedback for the player's guess."""
+
+    # Change color immediately
+    result_label.config(fg=color)
+
+    # If correct, add a simple fade-in/fade-out brightness effect
+    if correct:
+        def fade(step=0):
+            # Use lighter green shades to simulate a fade
+            shades = ["#a3be8c", "#b5d19c", "#c8e4ac", "#b5d19c", 
+                      "#a3be8c"]
+            if step < len(shades):
+                result_label.config(fg=shades[step])
+                result_label.after(100, lambda: fade(step + 1))
+            else:
+                result_label.config(fg=COLOR_FG)
+
+        fade()
+    else:
+        # Regular flash for wrong guesses
+        result_label.after(400, lambda: result_label.config(fg=COLOR_FG))
 
 def end_game():
     """Disable input and show the 'Play Again' button."""
